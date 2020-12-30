@@ -19,10 +19,5 @@
  * @since 30/12/2020
  */
 
-mod config;
-mod db;
-mod models;
-
-fn main() {
-    println!("Hello, world!");
-}
+pub mod user;
+pub mod response;
