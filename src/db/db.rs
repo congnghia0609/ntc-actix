@@ -38,15 +38,5 @@ impl IConnection for Connection {
     fn init(&self) -> &'static Client {
         lazy_static::initialize(&LAZY_CONNECTION);
         &*LAZY_CONNECTION
-
-        // // Parse a connection string into an options struct.
-        // let mut client_options = ClientOptions::parse("mongodb://localhost:27017").await?;
-        // // Manually set an option.
-        // client_options.app_name = Some("ntc-axtix".to_string());
-        // // Get a handle to the deployment.
-        // let client = Client::with_options(client_options)?;
-        // &client
-        // let client = Client::with_uri_str("mongodb://localhost:27017").unwrap();
-        // client
     }
 }
