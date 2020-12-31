@@ -19,6 +19,9 @@
  * @since 30/12/2020
  */
 
+#[macro_use]
+extern crate bson;
+
 mod config;
 mod db;
 mod models;
