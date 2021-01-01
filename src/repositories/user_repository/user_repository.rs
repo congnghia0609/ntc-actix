@@ -36,6 +36,7 @@ impl IUserRepository for UserRepository {
             .collection(collection_name.as_str())
             .find_one(doc! {"email": email}, None)
             .unwrap();
+        println!("cursor: {:?}", cursor);
         match cursor {
             Some(doc) => match bson::from_bson(bson::Bson::Document(doc)) {
                 Ok(model) => Ok(model),
@@ -46,6 +47,7 @@ impl IUserRepository for UserRepository {
     }
 
     fn login(&self, user: Login) -> Result<LoginResponse, Response> {
+        println!("login user: {:?}", user);
         match self.find_user_with_email(user.email.to_string()).unwrap() {
             Some(x) => {
                 let mut sha = Sha256::new();
@@ -109,7 +111,7 @@ impl IUserRepository for UserRepository {
                 sha.input_str(user.password.as_str());
                 let hash_pw = sha.result_str();
                 let user_id = uuid::Uuid::new_v4().to_string();
-                let _ex = db.collection(collection_name.as_str()).insert_one(doc! {"User_id": user_id, "name": user.name, "surname": user.surname, "email": user.email, "password": hash_pw, "phone": "", "birth_date": "" }, None);
+                let _ex = db.collection(collection_name.as_str()).insert_one(doc! {"user_id": user_id, "name": user.name, "surname": user.surname, "email": user.email, "password": hash_pw, "phone": "", "birth_date": "" }, None);
                 match _ex {
                     Ok(_) => Response {
                         status: true,
@@ -125,6 +127,7 @@ impl IUserRepository for UserRepository {
     }
 
     fn user_informations(&self, token: &str) -> Result<Option<User>, Response> {
+        println!("user repo token: {:?}", token);
         let _config: Config = Config {};
         let _var = _config.get_config_with_key("SECRET_KEY");
         let key = _var.as_bytes();

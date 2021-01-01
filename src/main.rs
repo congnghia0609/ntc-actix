@@ -22,12 +22,24 @@
 #[macro_use]
 extern crate bson;
 
+use actix_web::{middleware, web, App, HttpServer};
+use actix_web::http::ContentEncoding;
+
 mod config;
 mod db;
 mod models;
 mod repositories;
 mod middlewares;
 
-fn main() {
-    println!("Hello, world!");
+#[actix_rt::main]
+async fn main() -> std::io::Result<()> {
+    println!("Server is runing on: 0.0.0.0:8080");
+    HttpServer::new(|| {
+        App::new()
+            .wrap(middleware::Compress::new(ContentEncoding::Br))
+            .wrap(middleware::Logger::default())
+            .service(web::scope("/user").configure(repositories::user_repository::init_routes))
+    })
+        .bind("0.0.0.0:8080")?
+        .run().await
 }
