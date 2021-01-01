@@ -9,6 +9,7 @@ use actix_web::{post, get, web, HttpRequest, HttpResponse};
 use crate::models::user::{Login, Register};
 use crate::db::db::{Connection, IConnection};
 use crate::repositories::user_repository::{UserRepository, IUserRepository};
+use crate::middlewares::auth::AuthorizationService;
 
 #[post("/login")]
 async fn login(user: web::Json<Login>) -> HttpResponse {

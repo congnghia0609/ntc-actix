@@ -26,6 +26,7 @@ mod config;
 mod db;
 mod models;
 mod repositories;
+mod middlewares;
 
 fn main() {
     println!("Hello, world!");
