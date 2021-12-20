@@ -1,6 +1,11 @@
 # ntc-actix
 ntc-actix is a WebServer template using Actix Web framework by Rust  
 
+
+## Tool IDE Editor
+Tool [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download/)  
+
+
 ## Install Rust
 ```shell
 # https://www.rust-lang.org/tools/install
